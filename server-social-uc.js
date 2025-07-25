@@ -1,30 +1,37 @@
-
 document.addEventListener("DOMContentLoaded", function () {
+  const scriptTag = document.getElementById('uf-social-script');
+  if (!scriptTag) return;
+
+  const youtube = scriptTag.getAttribute('data-youtube') || '';
+  const instagram = scriptTag.getAttribute('data-instagram') || '';
+  const facebook = scriptTag.getAttribute('data-facebook') || '';
+  const twitter = scriptTag.getAttribute('data-twitter') || '';
+
   const socialContainer = document.createElement('div');
   socialContainer.className = "position-fixed start-0 bottom-0 m-3 d-flex flex-column gap-3";
   socialContainer.style.zIndex = "99999";
 
   const icons = [
     {
-      href: "https://www.youtube.com/@urbanfeatconstruction",
+      href: `https://www.youtube.com/${youtube.replace(/^@/, '')}`,
       icon: "fab fa-youtube",
       bg: "bg-danger",
       title: "YouTube"
     },
     {
-      href: "https://www.instagram.com/urbanfeat_construction/",
+      href: `https://www.instagram.com/${instagram}`,
       icon: "fab fa-instagram",
       bg: "bg-danger",
       title: "Instagram"
     },
     {
-      href: "https://www.facebook.com/urbanfeatcons/",
+      href: `https://www.facebook.com/${facebook}`,
       icon: "fab fa-facebook-f",
       bg: "bg-primary",
       title: "Facebook"
     },
     {
-      href: "https://x.com/urbanfeatcons/",
+      href: `https://x.com/${twitter}`,
       icon: "fab fa-twitter",
       bg: "bg-info",
       title: "Twitter"
