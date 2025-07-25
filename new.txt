@@ -11,3 +11,5 @@ header('Content-Type: application/javascript');
 
 // You can read file from local path or fetch from GitHub if needed
 echo file_get_contents('social-icons.js'); 
+
+https://github.com/vineettiwari1708/live-social-uc.git
