@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/vineettiwari1708/live-social-uc/main/server-so
 
 <script src="https://websoftlogic.com/serve-js.php?key="></script>
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 <?php
 $authKey = '1988'; // Replace with your actual secret key
 
@@ -63,6 +63,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 header('Content-Type: application/javascript');
 
 // Output the JS file
+echo file_get_contents('https://raw.githubusercontent.com/vineettiwari1708/live-social-uc/main/server-social-uc.js');
+?>
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+<?php
+$authKey = '1988';
+
+// Clean allowed domains (no trailing slashes)
+$allowed_origins = [
+    'http://localhost',
+    'https://urbanfeatconstruction.com',
+];
+
+// Check secret key
+if (!isset($_GET['key']) || $_GET['key'] !== $authKey) {
+    http_response_code(403);
+    exit('Forbidden: Invalid key');
+}
+
+// Get Origin and Referer
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$referer = $_SERVER['HTTP_REFERER'] ?? '';
+$referer_host = parse_url($referer, PHP_URL_SCHEME) . '://' . parse_url($referer, PHP_URL_HOST);
+
+// Validate origin or referer
+if ($origin && !in_array(rtrim($origin, '/'), $allowed_origins)) {
+    http_response_code(403);
+    exit('Forbidden: Unauthorized origin');
+} elseif (!$origin && $referer && !in_array($referer_host, $allowed_origins)) {
+    http_response_code(403);
+    exit('Forbidden: Unauthorized referer');
+}
+
+// Set CORS headers
+if ($origin && in_array(rtrim($origin, '/'), $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Methods: GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+
+// Handle preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
+// Set JS content type
+header('Content-Type: application/javascript');
+
+// Output remote JS
 echo file_get_contents('https://raw.githubusercontent.com/vineettiwari1708/live-social-uc/main/server-social-uc.js');
 ?>
 
