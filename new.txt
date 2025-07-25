@@ -63,6 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 header('Content-Type: application/javascript');
 
 // Output the JS file
-echo file_get_contents('social-icons.js');
+echo file_get_contents('https://raw.githubusercontent.com/vineettiwari1708/live-social-uc/main/server-social-uc.js');
 ?>
 
