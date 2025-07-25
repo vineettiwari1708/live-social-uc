@@ -1,0 +1,13 @@
+<?php
+$authKey = 'YOUR_SECRET_KEY';
+
+if ($_GET['key'] !== $authKey) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
+// Set proper JS content headers
+header('Content-Type: application/javascript');
+
+// You can read file from local path or fetch from GitHub if needed
+echo file_get_contents('social-icons.js'); 
