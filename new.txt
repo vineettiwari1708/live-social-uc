@@ -19,3 +19,50 @@ https://raw.githubusercontent.com/vineettiwari1708/live-social-uc/main/server-so
 
 
 <script src="https://websoftlogic.com/serve-js.php?key="></script>
+
+
+<?php
+$authKey = '1988'; // Replace with your actual secret key
+
+// List of allowed domains
+$allowed_origins = [
+    'http://localhost/urbanfeatconstruction/',
+    'https://urbanfeatconstruction.com/',
+    
+];
+
+// Check the secret key
+if (!isset($_GET['key']) || $_GET['key'] !== $authKey) {
+    http_response_code(403);
+    exit('Forbidden: Invalid key');
+}
+
+// Get the Origin header
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+// Check if the request Origin is allowed
+if ($origin && !in_array($origin, $allowed_origins)) {
+    http_response_code(403);
+    exit('Forbidden: Unauthorized origin');
+}
+
+// Set CORS headers only if the origin is valid
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Methods: GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+
+// Handle preflight requests (for CORS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
+// Set content type for JavaScript
+header('Content-Type: application/javascript');
+
+// Output the JS file
+echo file_get_contents('social-icons.js');
+?>
+
